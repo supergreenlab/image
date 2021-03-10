@@ -10,16 +10,17 @@ import 'copy_rotate.dart';
 Image bakeOrientation(Image image) {
   var bakedImage = Image.from(image);
   if (!image.exif.hasOrientation || image.exif.orientation == 1) {
+    // Strip exif anyway
+    bakedImage.exif = ExifData();
     return bakedImage;
   }
 
-  // Copy all exif data except for orientation
   bakedImage.exif = ExifData();
-  for (var key in image.exif.data.keys) {
+  /*for (var key in image.exif.data.keys) {
     if (key != ExifData.ORIENTATION) {
       bakedImage.exif.data[key] = image.exif.data[key];
     }
-  }
+  }*/
 
   switch (image.exif.orientation) {
     case 2:
